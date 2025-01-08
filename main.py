@@ -1,5 +1,5 @@
 import streamlit as st
-
+import random
 st.title("나의 첫번째 앱")
 
 st.text('\n\n')
@@ -9,7 +9,7 @@ st.write('저의 이메일 주소는 undefined@null.com')
 
 st.button("Reset", type="primary")
 if st.button("Say hello"):
-    st.write("Why hello there")
+    st.write(random.randint(1, 1000)
 else:
     st.write("Goodbye")
 
