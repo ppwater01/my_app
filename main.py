@@ -38,7 +38,7 @@ if page == "Game":
 
     # Instructions
     st.write("Guess the random number (between 1 and 100). Enter your guess below!")
-
+    st.write("***If you want to play again, press the reset button***")
     # Input box for user guess
     user_guess = st.number_input("Enter your guess:", min_value=1, max_value=100, step=1)
 
