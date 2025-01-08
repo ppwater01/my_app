@@ -9,8 +9,11 @@ LEADERBOARD_FILE = "leaderboard.json"
 def load_leaderboard():
     """Load leaderboard data from a file."""
     if os.path.exists(LEADERBOARD_FILE):
-        with open(LEADERBOARD_FILE, "r") as file:
-            return json.load(file)
+        try:
+            with open(LEADERBOARD_FILE, "r") as file:
+                return json.load(file)
+        except json.JSONDecodeError:
+            return []  # Return empty list if JSON is invalid
     return []
 
 def save_leaderboard(leaderboard):
