@@ -26,7 +26,8 @@ if "random_number" not in st.session_state:
     st.session_state.random_number = random.randint(1, 100)
     st.session_state.attempts = 0
     st.session_state.success = False
-    st.session_state.leaderboard = load_leaderboard()
+    if "leaderboard" not in st.session_state:
+        st.session_state.leaderboard = load_leaderboard()
 
 # Page navigation
 page = st.sidebar.selectbox("Select a page", ["Game", "Leaderboard"])
@@ -65,8 +66,10 @@ if page == "Game":
         st.write(f"It took you {st.session_state.attempts} attempts to guess the correct number.")
 
         # Add result to leaderboard
-        player_name = st.text_input("Enter your name for the leaderboard:", key="player_name")
+        player_name = st.text_input("Enter your name for the leaderboard:")
         if st.button("Submit to Leaderboard") and player_name:
+            if "leaderboard" not in st.session_state:
+                st.session_state.leaderboard = []
             st.session_state.leaderboard.append({"name": player_name, "attempts": st.session_state.attempts})
             st.session_state.leaderboard = sorted(st.session_state.leaderboard, key=lambda x: x["attempts"])  # Sort by attempts
             save_leaderboard(st.session_state.leaderboard)
@@ -77,7 +80,7 @@ elif page == "Leaderboard":
     st.title("Leaderboard")
 
     # Display leaderboard
-    leaderboard = st.session_state.leaderboard
+    leaderboard = st.session_state.get("leaderboard", [])
     if leaderboard:
         for idx, entry in enumerate(leaderboard, start=1):
             st.write(f"{idx}. {entry['name']} - {entry['attempts']} attempts")
