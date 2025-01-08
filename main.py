@@ -27,14 +27,16 @@ if st.button("Submit Guess"):
     else:
         st.write("Too high! Try again.")
 
+# Reset game button (always available)
+if st.button("Reset Game"):
+    st.session_state.random_number = random.randint(1, 100)  # Reset random number
+    st.session_state.attempts = 0  # Reset attempts
+    st.session_state.success = False
+    st.write("Game has been reset. Start guessing again!")
+
 # Show success message with fireworks effect if guessed correctly
 if st.session_state.success:
     st.balloons()  # Show fireworks/balloons
     st.write(f"Congratulations! You guessed the number {st.session_state.random_number} correctly.")
     st.write(f"It took you {st.session_state.attempts} attempts to guess the correct number.")
 
-    # Reset game button
-    if st.button("Play Again"):
-        st.session_state.random_number = random.randint(1, 100)  # Reset random number
-        st.session_state.attempts = 0  # Reset attempts
-        st.session_state.success = False
