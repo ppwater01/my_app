@@ -28,7 +28,7 @@ if st.button("Submit Guess"):
         st.write("Too high! Try again.")
 
 # Reset game button (always available)
-if st.button("Reset Game"):
+if st.button("Reset Game", type="primary"):
     st.session_state.random_number = random.randint(1, 100)  # Reset random number
     st.session_state.attempts = 0  # Reset attempts
     st.session_state.success = False
